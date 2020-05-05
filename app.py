@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta,date
 import math
 import plotly.graph_objects as go
+import plotly.express as px
 import dash
 import dash_table
 from dash_table.Format import Format
@@ -179,6 +180,10 @@ df_death = df_death.astype({'Date': 'datetime64'})
 df_confirmed = df_confirmed.astype({'Date': 'datetime64'})
 df_recovered = df_recovered.astype({'Date': 'datetime64'})
 df_active = df_active.astype({'Date': 'datetime64'})
+
+
+# create pie chart of Australian State Infection Rate
+fig_pie = px.pie(df_latest, values='Active', names='Province_State')
 
 axis_type = 'linear'
 # Create empty figure canvas
@@ -428,34 +433,46 @@ app.layout = html.Div(
                     className='dcc-sub-plot',
                     children=[
                         html.H5(
-                            children='Latest Coronavirus Outbreak Map'
+                            children='Australian Cases Timeline'
                         ),
                         dcc.Graph(
-                            id='datatable-interact-map',
                             style={'height': '400px'},
-                            config={"displayModeBar": False, "scrollZoom": True},
+                            figure=fig_combine,
+                            config={"displayModeBar": False, "scrollZoom": False},
                         ),
-
                     ]
                 ),
                 html.Div(
                     className='dcc-sub-plot',
                     children=[
                         html.H5(
-                            id='dcc-timeline-graph-head',
-                            children='Australian Cases Timeline'
+                            children='Australian States Infection Rate'
                         ),
                         dcc.Graph(
-                            style={'height': '301px'},
-                            figure=fig_combine,
+                            style={'height': '400px'},
+                            figure= fig_pie,
                             config={"displayModeBar": False, "scrollZoom": False},
-                        ),
+                        )
+
                     ]
+                )
+
+            ]
+
+        ),
+        html.Div(
+            className='table',
+            children=[
+                html.H5(
+                    children='Latest Coronavirus Outbreak Map',
+                    style = {'textAlign': 'center',
+                             'fontWeight': 'bold'}
                 ),
-
-
-
-
+                dcc.Graph(
+                    id='datatable-interact-map',
+                    style={'height': '400px'},
+                    config={"displayModeBar": False, "scrollZoom": True},
+                ),
             ]
         ),
         html.Div(
@@ -514,13 +531,10 @@ app.layout = html.Div(
 
 
 
-
-
-
-
     ]
 
 )
+
 
 
 @app.callback(
