@@ -185,7 +185,6 @@ df_active = df_active.astype({'Date': 'datetime64'})
 # create pie chart of Australian State Infection Rate
 fig_pie = px.pie(df_latest, values='Active', names='Province_State')
 
-axis_type = 'linear'
 # Create empty figure canvas
 fig_combine = go.Figure()
 # Add trace to the figure
@@ -251,14 +250,13 @@ fig_combine.update_layout(
         t=5,
         pad=0
     ),
-    yaxis_type=axis_type,
+    yaxis_type='linear',
     yaxis=dict(
         showline=False, linecolor='#272e3e',
         zeroline=False,
         gridcolor='rgba(203, 210, 211,.3)',
         gridwidth=.1,
     ),
-    #    yaxis_title="Total Confirmed Case Number",
     xaxis=dict(
         showline=False, linecolor='#272e3e',
         showgrid=False,
@@ -308,8 +306,10 @@ app.layout = html.Div(
                     children=dcc.Markdown(
                         children=
                         '''
-                        This dashboard is developed to visualise and and track the recent reported cases in Australia.
-                        
+                        This dashboard is developed to visualize and track the spread of recent outbreak coronavirus (COVID-19) in Australia.
+                        Also, this website and its contents, including all data, mapping, and analysis, is provided to the public strictly 
+                        for general information purposes only. All the data was collected from Johns Hopkins CSSE
+                        (https://github.com/CSSEGISandData/COVID-19).  
                         ''',
                     )
                 ),
@@ -527,8 +527,48 @@ app.layout = html.Div(
 
             ]
         ),
+        html.Div(
+            className='footer-container',
+            id='my-footer',
+            children=[
+                html.Hr(),
+                html.P(
+                   style={'textAlign': 'center', 'margin': 'auto'},
+                   children=[
+                       html.A(
+                           'UTS Project',
+                           href='https://handbook.uts.edu.au/subjects/48001.html',
+                           target='_blank'
+                       ),
+                       ' | ',
+                       html.A(
+                           'Project Owner: Chris Wong',
+                           href='https://www.uts.edu.au/staff/chris.wong',
+                           target='_blank'
+                       ),
+                       ' | ',
+                       html.A(
+                           'Developed by: Xu Jing',
+                           href='https://github.com/XuJing98',
+                           target='_blank'
 
-
+                       ),
+                       ' , ',
+                       html.A(
+                           'Zeyu Li',
+                           href='https://github.com/lizeyujack',
+                           target='_blank'
+                       ),
+                       ' , Peifeng Xing & Ziheng Wang | ',
+                       html.A(
+                            'About this dashboard',
+                            href='https://github.com/XuJing98/Australia-COVID19-dashboard',
+                            target='_blank'
+                        ),
+                   ]
+                ),
+            ]
+        )
 
 
     ]
