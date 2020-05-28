@@ -559,7 +559,19 @@ app.layout = html.Div(
                            href='https://github.com/lizeyujack',
                            target='_blank'
                        ),
-                       ' , Peifeng Xing & Ziheng Wang | ',
+                       ' , ',
+                       html.A(
+                           'Peifeng Xing',
+                           href='https://github.com/xingpeifeng',
+                           target='_blank'
+                       ),
+                       ' & ',
+                       html.A(
+                           'Ziheng Wang',
+                           href='https://github.com/Gray-ui',
+                           target='_blank'
+                       ),
+                       ' | ',
                        html.A(
                             'About this dashboard',
                             href='https://github.com/XuJing98/Australia-COVID19-dashboard',
